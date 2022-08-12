@@ -1,6 +1,6 @@
 import { ErrorRequestHandler } from 'express';
 
-interface ErrorObject {
+export interface ErrorObject {
   type:
     | 'unauthorized'
     | 'forbidden'
