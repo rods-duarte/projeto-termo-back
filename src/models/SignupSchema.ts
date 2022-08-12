@@ -7,11 +7,13 @@ export interface SignupData {
   confirmPassword: string;
 }
 
-const SignupSchema = Joi.object<SignupData>({
+const SignupSchema = Joi.object({
   username: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string().required(),
   confirmPassword: Joi.ref('password'),
-}).with('confirmPassword', 'password');
+})
+  .with('confirmPassword', 'password')
+  .with('password', 'confirmPassword');
 
 export { SignupSchema };
