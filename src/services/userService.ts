@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { unauthorizedError } from '../middlewares/errorHandlerMiddleware.js';
+import { Credentials } from '../models/SigninSchema.js';
 import { SignupData } from '../models/SignupSchema.js';
 import * as userRepository from '../repositories/userRepository.js';
 
@@ -23,4 +25,28 @@ async function create(signupData: Omit<SignupData, 'confirmPassword'>) {
   return user;
 }
 
-export { getByEmail, create };
+async function login(credentials: Credentials) {
+  const { email, password } = credentials;
+  const user = await userRepository.select(email);
+
+  if (!user) {
+    const message = 'Wrong email & password combination !';
+    throw unauthorizedError(message);
+  }
+
+  const valid = bcrypt.compareSync(password, user.password);
+
+  if (!valid) {
+    const message = 'Wrong email & password combination !';
+    throw unauthorizedError(message);
+  }
+
+  delete user.password;
+  const payload = { ...user };
+  const token = jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: 60 * 60 * 24, // one day
+  });
+  return token;
+}
+
+export { getByEmail, create, login };
