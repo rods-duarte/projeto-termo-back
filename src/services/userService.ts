@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { unauthorizedError } from '../middlewares/errorHandlerMiddleware.js';
 import { Credentials } from '../models/SigninSchema.js';
 import { SignupData } from '../models/SignupSchema.js';
-import * as userRepository from '../repositories/userRepository.js';
+import { userRepository } from '../repositories/userRepository.js';
 
 async function getByEmail(email: string) {
   const user = await userRepository.select(email);
@@ -49,4 +49,4 @@ async function login(credentials: Credentials) {
   return token;
 }
 
-export { getByEmail, create, login };
+export const userService = { getByEmail, create, login };

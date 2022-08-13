@@ -15,4 +15,7 @@ async function insert(data: Omit<SignupData, 'confirmPassword'>) {
   });
 }
 
-export { select, insert };
+export const userRepository = {
+  select,
+  insert,
+};

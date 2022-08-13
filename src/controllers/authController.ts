@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import * as userService from '../services/userService.js';
+import { userService } from '../services/userService.js';
 import { SignupData } from '../models/SignupSchema.js';
 import { Credentials } from '../models/SigninSchema.js';
 
