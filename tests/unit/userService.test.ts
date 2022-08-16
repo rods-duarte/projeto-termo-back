@@ -24,7 +24,12 @@ describe('user service test suit', () => {
         currentStreak: 1,
         losses: 2,
         wins: 3,
-        score: 4,
+        oneGuess: 4,
+        twoGuess: 5,
+        threeGuess: 6,
+        fourGuess: 7,
+        fiveGuess: 8,
+        sixGuess: 9,
       };
       jest.spyOn(userRepository, 'select').mockResolvedValueOnce(user);
 
@@ -66,7 +71,12 @@ describe('user service test suit', () => {
         currentStreak: 1,
         losses: 2,
         wins: 3,
-        score: 4,
+        oneGuess: 4,
+        twoGuess: 5,
+        threeGuess: 6,
+        fourGuess: 7,
+        fiveGuess: 8,
+        sixGuess: 9,
       };
       jest.spyOn(userRepository, 'insert').mockResolvedValueOnce(null);
       jest.spyOn(userRepository, 'select').mockResolvedValueOnce(user);
@@ -90,7 +100,12 @@ describe('user service test suit', () => {
         currentStreak: 1,
         losses: 2,
         wins: 3,
-        score: 4,
+        oneGuess: 4,
+        twoGuess: 5,
+        threeGuess: 6,
+        fourGuess: 7,
+        fiveGuess: 8,
+        sixGuess: 9,
       };
       const credentials: Credentials = {
         email: faker.internet.email(),
@@ -126,7 +141,12 @@ describe('user service test suit', () => {
         currentStreak: 1,
         losses: 2,
         wins: 3,
-        score: 4,
+        oneGuess: 4,
+        twoGuess: 5,
+        threeGuess: 6,
+        fourGuess: 7,
+        fiveGuess: 8,
+        sixGuess: 9,
       };
       const credentials: Credentials = {
         email: faker.internet.email(),
