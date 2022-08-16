@@ -7,9 +7,8 @@ async function signup(req: Request, res: Response) {
   const signupData: SignupData = { ...req.body };
   delete signupData.confirmPassword;
   await userService.create(signupData);
-  const userData = await userService.getByEmail(signupData.email);
-  delete userData.password;
-  res.status(201).send(userData);
+
+  res.status(201).send('Created');
 }
 
 async function signin(req: Request, res: Response) {
