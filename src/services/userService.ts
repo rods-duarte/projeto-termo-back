@@ -1,8 +1,12 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { unauthorizedError } from '../middlewares/errorHandlerMiddleware.js';
+import {
+  notFoundError,
+  unauthorizedError,
+} from '../middlewares/errorHandlerMiddleware.js';
 import { Credentials } from '../models/SigninSchema.js';
 import { SignupData } from '../models/SignupSchema.js';
+import { UserStats } from '../models/userStatsSchema.js';
 import { userRepository } from '../repositories/userRepository.js';
 
 async function getByEmail(email: string) {
@@ -23,6 +27,16 @@ async function create(signupData: Omit<SignupData, 'confirmPassword'>) {
 
   const user = await userRepository.insert(data);
   return user;
+}
+
+async function updateStats(email: string, stats: UserStats) {
+  const userExists = await userRepository.select(email);
+  if (!userExists) {
+    const message = 'User not found !';
+    throw notFoundError(message);
+  }
+
+  await userRepository.update(email, stats);
 }
 
 async function login(credentials: Credentials) {
@@ -46,7 +60,7 @@ async function login(credentials: Credentials) {
   const token = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: 60 * 60 * 24, // one day
   });
-  return token;
+  return { token, ...payload };
 }
 
-export const userService = { getByEmail, create, login };
+export const userService = { getByEmail, create, login, updateStats };
