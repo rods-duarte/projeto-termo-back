@@ -17,7 +17,12 @@ model User {
   password      String
   wins          Int    @default(0)
   losses        Int    @default(0)
-  score         Int    @default(0)
+  oneGuess      Int    @default(0)
+  twoGuess      Int    @default(0)
+  threeGuess    Int    @default(0)
+  fourGuess     Int    @default(0)
+  fiveGuess     Int    @default(0)
+  sixGuess      Int    @default(0)
   bestStreak    Int    @default(0)
   currentStreak Int    @default(0)
 
