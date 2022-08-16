@@ -7,13 +7,15 @@ async function signup(req: Request, res: Response) {
   const signupData: SignupData = { ...req.body };
   delete signupData.confirmPassword;
   await userService.create(signupData);
-  res.status(201).send('User created !');
+  const userData = await userService.getByEmail(signupData.email);
+  delete userData.password;
+  res.status(201).send(userData);
 }
 
 async function signin(req: Request, res: Response) {
   const credentials: Credentials = { ...req.body };
-  const token = await userService.login(credentials);
-  res.status(200).send({ token });
+  const userData = await userService.login(credentials);
+  res.status(200).send(userData);
 }
 
 export { signup, signin };
