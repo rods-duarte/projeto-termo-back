@@ -1,12 +1,11 @@
 import dayjs from 'dayjs';
 
 function generateTodayWordIndex(totalWords: number) {
-  const fixTimeZone = -3 * 60 * 60 * 1000;
-  const timeNow = new Date(Date.now() + fixTimeZone);
+  const fixTimeZone = 3 * 60 * 60 * 1000;
+  const timeNow = new Date(Date.now() - fixTimeZone);
   const reference = new Date(0);
 
-  const differenceInTime =
-    timeNow.getTime() - fixTimeZone - reference.getTime();
+  const differenceInTime = timeNow.getTime() - reference.getTime();
   const differenteInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
 
   const wordIndex = differenteInDays % totalWords;
